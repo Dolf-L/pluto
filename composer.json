@@ -1,0 +1,8 @@
+{
+    "name": "pluto/lesson",
+    "autoload": {
+        "psr-4": {
+            "app\\": "app/"
+        }
+    }
+}
