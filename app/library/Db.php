@@ -19,9 +19,9 @@ class Db
      */
     public static function getConnection()
     {
-        $paramsPath = "/config/db_params.php";
-        $params = include($paramsPath);
-        try {
+        $params = Config::get('db_params');
+
+
             $charset = 'utf8';
             $dns = "mysql:host={$params['host']};dbname={$params['dbname']};charset={$charset}";
             $opt = array(
@@ -30,8 +30,6 @@ class Db
             );
             $db = new PDO($dns, $params['user'], $params['password'], $opt);
             return $db;
-        } catch (PDOException $e) {
-            new Error($e->getMessage());
-        }
+
     }
 }

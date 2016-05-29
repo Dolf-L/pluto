@@ -4,6 +4,7 @@ namespace app\model;
 use app\library\Model;
 use app\library\Db;
 
+
 class ListOfStudents extends Model
 {
     private $table_name = 'list';

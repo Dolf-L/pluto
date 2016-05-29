@@ -37,14 +37,12 @@ abstract Class Model
      */
     public function view($table_name)
     {
-        try {
+
             $sql = "SELECT * FROM $table_name";
             $stmt = $this->db->query($sql);
             $list = $stmt->fetchAll();
             return $list;
-        } catch (PDOException $e) {
-            new Error($e->getMessage());
-        }
+
     }
 
     /**
@@ -58,16 +56,14 @@ abstract Class Model
      */
     public function search($table_name, $id)
     {
-        try {
+
             $sql = "SELECT * FROM $table_name WHERE id = :id";
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':id', $id);
             $stmt->execute();
             $one = $stmt->fetchAll();
             return $one;
-        } catch (PDOException $e) {
-            new Error($e->getMessage());
-        }
+
     }
 
     /**
@@ -79,7 +75,6 @@ abstract Class Model
      * Add new data to database
      */
     public function add($table_name, $data) {
-        try {
             $fields = array_keys($data);
             $values = array_values($data);
             $fields_list = '`' . implode('`, `', $fields) . '`';
@@ -87,9 +82,6 @@ abstract Class Model
             $sql = "INSERT INTO $table_name ($fields_list) VALUES ($qm)";
             $stmt = $this->db->prepare($sql);
             $stmt->execute($values);
-        } catch (PDOException $e) {
-            new Error($e->getMessage());
-        }
     }
 
     /**
@@ -101,16 +93,14 @@ abstract Class Model
      *
      * update data in database
      */
-    public function update($table_name, $data, $id){
-        try {
+    public function update($table_name, $data, $id) {
+
             $query = "UPDATE $table_name SET " . $this->pdoSet($data) . " WHERE id = ?";
             $stmt = $this->db->prepare($query);
             $values = array_values($data);
             $values[] = $id;
             $stmt->execute($values);
-        } catch (PDOException $e) {
-            new Error($e->getMessage());
-        }
+
     }
 
     /**
@@ -123,13 +113,11 @@ abstract Class Model
      */
     public function delete($table_name, $id)
     {
-        try {
+
             $sql = "DELETE FROM $table_name WHERE id =  :id";
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':id', $id);
             $stmt->execute();
-        } catch (PDOException $e) {
-            new Error($e->getMessage());
-        }
+
     }
 }

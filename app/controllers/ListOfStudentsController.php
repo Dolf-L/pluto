@@ -15,28 +15,28 @@ class ListOfStudentsController
     public function actionIndex()
     {
         $list =  $this->model->getStudentsList();
-        require_once ROOT . '/view/index.php';
+        require_once ROOT . '/app/view/index.php';
     }
     public function actionDelete($id)
     {
         $this->model->deleteStudent($id);
-
         header("Location: /list");
     }
     public function actionAddNewStudent()
     {
+        require_once ROOT . '/app/view/add.php';
         $this->model->AddNewStudent($_POST);
-        require_once ROOT . '/view/add.php';
         if (isset($_POST['name'])) {
             header("Location: /list");
         }
     }
     public function actionUpdateStudent($id)
     {
-        $this->model->UpdateStudent($_POST, $id);
         $one = $this->model->getOneStudent($id);
+        require_once ROOT . '/app//view/update.php';
 
-        require_once ROOT . '/view/update.php';
+        $this->model->UpdateStudent($_POST, $id);
+
         if (isset($_POST['name'])) {
             header("Location: /list");
         }
