@@ -2,11 +2,11 @@
 namespace app\controllers;
 
 use app\model\ListOfStudents;
+use app\model\Validation;
+use app\library\Controller;
 
-class ListOfStudentsController
+class ListOfStudentsController extends Controller
 {
-    protected $model;
-
     public function __construct()
     {
         $this->model = new ListOfStudents();
@@ -24,6 +24,7 @@ class ListOfStudentsController
     }
     public function actionAddNewStudent()
     {
+        new Validation($_POST, 15, 90, 2, 255);
         require_once ROOT . '/app/view/add.php';
         $this->model->AddNewStudent($_POST);
         if (isset($_POST['name'])) {
@@ -32,6 +33,7 @@ class ListOfStudentsController
     }
     public function actionUpdateStudent($id)
     {
+        new Validation($_POST, 15, 90, 2, 255);
         $one = $this->model->getOneStudent($id);
         require_once ROOT . '/app//view/update.php';
 

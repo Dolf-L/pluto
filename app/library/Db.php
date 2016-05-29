@@ -3,6 +3,7 @@ namespace app\library;
 
 use \PDO;
 use app\library\Error;
+
 /**
  * Class Db
  * work with database
@@ -21,7 +22,7 @@ class Db
     {
         $params = Config::get('db_params');
 
-
+        try {
             $charset = 'utf8';
             $dns = "mysql:host={$params['host']};dbname={$params['dbname']};charset={$charset}";
             $opt = array(
@@ -30,6 +31,8 @@ class Db
             );
             $db = new PDO($dns, $params['user'], $params['password'], $opt);
             return $db;
-
+        } catch (PDOException $e) {
+            new Error($e->getMessage());
+        }
     }
 }

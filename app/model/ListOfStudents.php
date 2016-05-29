@@ -4,14 +4,17 @@ namespace app\model;
 use app\library\Model;
 use app\library\Db;
 
+use app\model\Filtration;
 
 class ListOfStudents extends Model
 {
     private $table_name = 'list';
+    private $filter;
 
     public function __construct()
     {
         $this->db = Db::getConnection();
+        $this->filter = new Filtration();
     }
     public function getStudentsList()
     {
@@ -27,10 +30,12 @@ class ListOfStudents extends Model
     }
     public function AddNewStudent($data)
     {
+        $data = $this->filter->filter($data);
         $this->add($this->table_name, $data);
     }
     public function UpdateStudent($data, $id)
     {
+        $data = $this->filter->filter($data);
         $this->update($this->table_name, $data, $id);
     }
 }
