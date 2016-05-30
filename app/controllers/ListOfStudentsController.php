@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers;
 
+use app\library\View;
 use app\model\ListOfStudents;
 use app\model\Validation;
 use app\library\Controller;
@@ -14,8 +15,9 @@ class ListOfStudentsController extends Controller
 
     public function actionIndex()
     {
-        $list =  $this->model->getStudentsList();
-        require_once ROOT . '/app/view/index.php';
+        new View('index.html', array('list' => $this->model->getStudentsList()));
+//        $list =  $this->model->getStudentsList();
+//        require_once ROOT . '/app/view/index.php';
     }
     public function actionDelete($id)
     {
