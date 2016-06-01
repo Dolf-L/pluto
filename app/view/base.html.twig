@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+        <meta charset="UTF-8" />
+        <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+</head>
+<body>
+<div id="errors">{% block message %}{% endblock message %}</div>
+<div id="content">{% block content %}{% endblock content %}</div>
+<div id="footer">{% block footer %}{% endblock footer %}
+</div>
+</body>
+</html>

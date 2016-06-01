@@ -15,9 +15,7 @@ class ListOfStudentsController extends Controller
 
     public function actionIndex()
     {
-        new View('index.html', array('list' => $this->model->getStudentsList()));
-//        $list =  $this->model->getStudentsList();
-//        require_once ROOT . '/app/view/index.php';
+        new View('index.html.twig', array('list' => $this->model->getStudentsList()));
     }
     public function actionDelete($id)
     {
@@ -26,21 +24,28 @@ class ListOfStudentsController extends Controller
     }
     public function actionAddNewStudent()
     {
+        new View('add.html.twig');
+    }
+
+    public function actionAdd()
+    {
         new Validation($_POST, 15, 90, 2, 255);
-        require_once ROOT . '/app/view/add.php';
         $this->model->AddNewStudent($_POST);
         if (isset($_POST['name'])) {
             header("Location: /list");
         }
     }
+
     public function actionUpdateStudent($id)
     {
         new Validation($_POST, 15, 90, 2, 255);
-        $one = $this->model->getOneStudent($id);
-        require_once ROOT . '/app//view/update.php';
+        new View('update.html.twig', array('one' => $this->model->getOneStudent($id)));
 
+    }
+    public function actionUpdate($id)
+    {
+        new Validation($_POST, 15, 90, 2, 255);
         $this->model->UpdateStudent($_POST, $id);
-
         if (isset($_POST['name'])) {
             header("Location: /list");
         }

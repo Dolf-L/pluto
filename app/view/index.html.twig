@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List{% endblock title %}
+{% block content %}
+<style type="text/css">
+    table {
+        border-collapse: collapse;
+    }
+    table th,
+    table td {
+        padding: 0 3px;
+    }
+    table.brd th,
+    table.brd td {
+        border: 1px solid #000;
+    }
+</style>
+<table class="brd">
+    <tr>
+        <th>№</th>
+        <th>Name</th>
+        <th>surname</th>
+        <th>sex</th>
+        <th>group</th>
+        <th>age</th>
+        <th>faculty</th>
+    </tr>
+    {% for N in list %}
+    <tr>
+        <td> {{ N.name }}</td>
+        <td> {{ N.surname }}</td>
+        <td> {{ N.sex }}</td>
+        <td> {{ N.group }}</td>
+        <td> {{ N.age }}</td>
+        <td> {{ N.faculty }}</td>
+        <td>
+            <a href="/list/UpdateStudent/{{ N.id }}>">
+                <i>update</i>
+            </a>
+        </td>
+        <td>
+            <a href="/list/delete/{{ N.id }}">
+                <i>delete</i>
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+    <?php endforeach;?>
+</table>
+<a href="/list/addNewStudent">
+    <i>add new student</i>
+</a>
+{% endblock content %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List{% endblock title %}
+{% block content %}
+    <body>
+    <h3 >Add new student</h3>
+    <form action= "update" method= "POST">
+        <table >
+            <tr>
+                <td>Name: </td>
+                <td><input type= "text" name= "name" ><td>
+            </tr>
+            <tr>
+                <td>Surname: </td>
+                <td><input type= "text" name= "surname" ></td>
+            </tr>
+            <tr>
+                <td>sex: </td>
+                <td><input type= "text" name= "sex" ></td>
+            </tr>
+            <tr>
+                <td>group: </td>
+                <td><input type= "text" name= "group" ></td>
+            </tr>
+            <tr>
+                <td>age: </td>
+                <td><input type= "text" name= "age" ></td>
+            </tr>
+            <tr>
+                <td>faculty: </td>
+                <td><input type= "text" name= "faculty" ></td>
+            </tr>
+        </table>
+        <input type= "submit" value= "save" >
+        <a href="/list">Back</a>
+    </form>
+    </body>
+{% endblock content %}
