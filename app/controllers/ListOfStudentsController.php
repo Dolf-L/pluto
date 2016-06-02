@@ -8,6 +8,8 @@ use app\library\Controller;
 
 class ListOfStudentsController extends Controller
 {
+    protected $model;
+
     public function __construct()
     {
         $this->model = new ListOfStudents();
@@ -15,7 +17,8 @@ class ListOfStudentsController extends Controller
 
     public function actionIndex()
     {
-        new View('index.html.twig', array('list' => $this->model->getStudentsList()));
+        new View('index.html.twig', array(
+            'list' => $this->model->getStudentsList()));
     }
     public function actionDelete($id)
     {
@@ -24,29 +27,19 @@ class ListOfStudentsController extends Controller
     }
     public function actionAddNewStudent()
     {
-        new View('add.html.twig');
-    }
-
-    public function actionAdd()
-    {
         new Validation($_POST, 15, 90, 2, 255);
+        new View('add.html.twig');
         $this->model->AddNewStudent($_POST);
-        if (isset($_POST['name'])) {
+        if ($_POST) {
             header("Location: /list");
         }
     }
-
     public function actionUpdateStudent($id)
     {
         new Validation($_POST, 15, 90, 2, 255);
         new View('update.html.twig', array('one' => $this->model->getOneStudent($id)));
-
-    }
-    public function actionUpdate($id)
-    {
-        new Validation($_POST, 15, 90, 2, 255);
         $this->model->UpdateStudent($_POST, $id);
-        if (isset($_POST['name'])) {
+        if ($_POST) {
             header("Location: /list");
         }
     }

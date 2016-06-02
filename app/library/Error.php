@@ -5,10 +5,10 @@ namespace app\library;
 
 class Error {
 
-    protected $errors = array();
+    protected $errors;
 
     public function __construct($error)
     {
-        $this->errors[] = $error;
+        $this->errors = $error;
     }
 }

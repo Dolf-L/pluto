@@ -27,6 +27,7 @@
     </tr>
     {% for N in list %}
     <tr>
+        <td> {{ loop.index }}</td>
         <td> {{ N.name }}</td>
         <td> {{ N.surname }}</td>
         <td> {{ N.sex }}</td>
@@ -34,7 +35,7 @@
         <td> {{ N.age }}</td>
         <td> {{ N.faculty }}</td>
         <td>
-            <a href="/list/UpdateStudent/{{ N.id }}>">
+            <a href="/list/UpdateStudent/{{ N.id }}">
                 <i>update</i>
             </a>
         </td>

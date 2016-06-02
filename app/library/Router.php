@@ -32,7 +32,6 @@ class Router
                 $controllerName = 'app\controllers\\' . ucfirst(array_shift($segments)) . 'Controller';
                 $actionName = 'action' . ucfirst(array_shift($segments));
                 $parameters = $segments;
-
                 $controllerObject = new $controllerName;
                 $result = call_user_func_array(array($controllerObject, $actionName), $parameters);
                 if ($result != NULL)  break;
