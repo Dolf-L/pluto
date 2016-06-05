@@ -8,13 +8,16 @@ use app\model\Filtration;
 
 class ListOfStudents extends Model
 {
-    private $table_name = 'list';
-    private $filter;
+    public $db;
+    public $table_name;
+    public $filter;
 
-    public function __construct()
+    public function __construct(Db $db, $table_name, Filtration $filter)
     {
-        $this->db = Db::getConnection();
-        $this->filter = new Filtration();
+        $this->db = $db->getConnection();
+        $this->table_name = $table_name;
+        $this->filter = $filter;
+
     }
     public function getStudentsList()
     {

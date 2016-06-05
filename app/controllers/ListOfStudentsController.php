@@ -1,7 +1,9 @@
 <?php
 namespace app\controllers;
 
+use app\library\Db;
 use app\library\View;
+use app\model\Filtration;
 use app\model\ListOfStudents;
 use app\model\Validation;
 use app\library\Controller;
@@ -12,7 +14,7 @@ class ListOfStudentsController extends Controller
 
     public function __construct()
     {
-        $this->model = new ListOfStudents();
+        $this->model = new ListOfStudents(new Db(), 'list', new Filtration());
     }
 
     public function actionIndex()

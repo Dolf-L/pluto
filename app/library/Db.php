@@ -18,7 +18,7 @@ class Db
      *
      * connection database
      */
-    public static function getConnection()
+    public function getConnection()
     {
         $params = Config::get('db_params');
 

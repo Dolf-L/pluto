@@ -2,6 +2,7 @@
 namespace app\library;
 
 use app\library\Error;
+use app\model\Filtration;
 use PDOException;
 
 /**
@@ -12,7 +13,13 @@ use PDOException;
 abstract Class Model
 {
     public $db;
+    public $table_name;
 
+    public function __construct(Db $db, $table_name)
+    {
+        $this->db = $db->getConnection();
+        $this->table_name = $table_name;
+    }
 
     /**
      * update helper
@@ -46,7 +53,7 @@ abstract Class Model
             $list = $stmt->fetchAll();
             return $list;
         } catch (PDOException $e) {
-            new Error($e->getMessage());
+            echo $e->getMessage();
         }
     }
 
