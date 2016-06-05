@@ -2,6 +2,7 @@
 namespace app\library;
 
 use app\library\Error;
+use app\validation\Filtration;
 use PDOException;
 
 /**
@@ -12,7 +13,13 @@ use PDOException;
 abstract Class Model
 {
     public $db;
+    public $table_name;
 
+    public function __construct(Db $db, $table_name)
+    {
+        $this->db = $db->getConnection();
+        $this->table_name = $table_name;
+    }
 
     /**
      * update helper
@@ -22,7 +29,8 @@ abstract Class Model
      *
      * produce SET statement
      */
-    function pdoSet($array) {
+    function pdoSet($array)
+    {
         $temp = array();
         foreach (array_keys($array) as $name) {
             $temp[] = "`$name` = ?";
@@ -46,7 +54,7 @@ abstract Class Model
             $list = $stmt->fetchAll();
             return $list;
         } catch (PDOException $e) {
-            new Error($e->getMessage());
+            Error::logError('pdo_error', $e->getMessage());
         }
     }
 
@@ -61,17 +69,16 @@ abstract Class Model
      */
     public function search($table_name, $id)
     {
-            try {
+        try {
                 $sql = "SELECT * FROM $table_name WHERE id = :id";
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindParam(':id', $id);
                 $stmt->execute();
                 $one = $stmt->fetchAll();
                 return $one;
-            } catch (PDOException $e) {
-                new Error($e->getMessage());
-            }
-
+        } catch (PDOException $e) {
+            Error::logError('pdo_error', $e->getMessage());
+        }
     }
 
     /**
@@ -82,7 +89,8 @@ abstract Class Model
      *
      * Add new data to database
      */
-    public function add($table_name, $data) {
+    public function add($table_name, $data)
+    {
         try {
             $fields = array_keys($data);
             $values = array_values($data);
@@ -90,9 +98,11 @@ abstract Class Model
             $qm = substr(str_repeat('?,', count($fields)), 0, -1);
             $sql = "INSERT INTO $table_name ($fields_list) VALUES ($qm)";
             $stmt = $this->db->prepare($sql);
-            $stmt->execute($values);
+            if ($data) {
+                $stmt->execute($values);
+            }
         } catch (PDOException $e) {
-            new Error($e->getMessage());
+            Error::logError('pdo_error', $e->getMessage());
         }
     }
 
@@ -105,15 +115,18 @@ abstract Class Model
      *
      * update data in database
      */
-    public function update($table_name, $data, $id) {
+    public function update($table_name, $data, $id)
+    {
         try {
             $query = "UPDATE $table_name SET " . $this->pdoSet($data) . " WHERE id = ?";
             $stmt = $this->db->prepare($query);
             $values = array_values($data);
             $values[] = $id;
-            $stmt->execute($values);
+            if ($data) {
+                $stmt->execute($values);
+            }
         } catch (PDOException $e) {
-            new Error($e->getMessage());
+            Error::logError('pdo_error', $e->getMessage());
         }
     }
 
@@ -128,12 +141,12 @@ abstract Class Model
     public function delete($table_name, $id)
     {
         try {
-            $sql = "DELETE FROM $table_name WHERE id =  :id";
+            $sql = "DELETE FROM $table_name WHERE id = :id";
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':id', $id);
             $stmt->execute();
         } catch (PDOException $e) {
-            new Error($e->getMessage());
+            Error::logError('pdo_error', $e->getMessage());
         }
     }
 }

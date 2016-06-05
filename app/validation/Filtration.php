@@ -1,5 +1,6 @@
 <?php
-namespace app\model;
+namespace app\validation;
+
 
 use app\library\Error;
 
@@ -19,7 +20,7 @@ class Filtration
             } elseif (is_string($value)) {
                 $this->array[$key] = $this->ifStr($value);
             } else {
-                return new Error("incorrect data type");
+                Error::logError('incorrect type');
             }
         }
         return $this->array;

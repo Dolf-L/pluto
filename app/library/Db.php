@@ -18,7 +18,7 @@ class Db
      *
      * connection database
      */
-    public static function getConnection()
+    public function getConnection()
     {
         $params = Config::get('db_params');
 
@@ -32,7 +32,7 @@ class Db
             $db = new PDO($dns, $params['user'], $params['password'], $opt);
             return $db;
         } catch (PDOException $e) {
-            new Error($e->getMessage());
+            Error::logError($e->getMessage());
         }
     }
 }

@@ -25,22 +25,22 @@
         <th>age</th>
         <th>faculty</th>
     </tr>
-    {% for N in list %}
+    {% for student in list %}
     <tr>
         <td> {{ loop.index }}</td>
-        <td> {{ N.name }}</td>
-        <td> {{ N.surname }}</td>
-        <td> {{ N.sex }}</td>
-        <td> {{ N.group }}</td>
-        <td> {{ N.age }}</td>
-        <td> {{ N.faculty }}</td>
+        <td> {{ student.name }}</td>
+        <td> {{ student.surname }}</td>
+        <td> {{ student.sex }}</td>
+        <td> {{ student.group }}</td>
+        <td> {{ student.age }}</td>
+        <td> {{ student.faculty }}</td>
         <td>
-            <a href="/list/UpdateStudent/{{ N.id }}">
+            <a href="/list/UpdateStudent/{{ student.id }}">
                 <i>update</i>
             </a>
         </td>
         <td>
-            <a href="/list/delete/{{ N.id }}">
+            <a href="/list/delete/{{ student.id }}">
                 <i>delete</i>
             </a>
         </td>

@@ -5,10 +5,14 @@ namespace app\library;
 
 class Error {
 
-    protected $errors;
+    protected static $errors = array();
 
-    public function __construct($error)
+    public static function logError($key, $error)
     {
-        $this->errors = $error;
+        static::$errors[$key] = $error;
+    }
+    public static function showError()
+    {
+        return self::$errors;
     }
 }
