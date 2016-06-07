@@ -7,34 +7,32 @@ class Validation
 {
     /**
      * Validation constructor.
-     * @param $el
-     * @param $min_num
-     * @param $max_num
-     * @param $min_str_len
-     * @param $max_str_len
+     *
+     * @param $method
+     * @param $valid_params
      */
-    public function __construct($el, $min_num, $max_num, $min_str_len, $max_str_len)
+    public function __construct($method, $valid_params)
     {
         try {
-            foreach ($el as $element) {
+            foreach ($method as $element) {
                 if (empty($element)) {
                     throw new \ErrorException("Please fill out this field");
                 } elseif (is_numeric($element)) {
                     if ((intval($element) != $element)) {
                         throw new \ErrorException("Age mast be integer number");
                     }
-                    if ($element < $min_num) {
-                        throw new \ErrorException("Age mast be grater than $min_num");
+                    if ($element < $valid_params['min_num']) {
+                        throw new \ErrorException("Age mast be grater than " . $valid_params['min_num']);
                     }
-                    if ($element > $max_num) {
-                        throw new \ErrorException("Age mast be less than $max_num");
+                    if ($element > $valid_params['max_num']) {
+                        throw new \ErrorException("Age mast be less than $" . $valid_params['max_num']);
                     }
                 } elseif (is_string($element)) {
-                    if ((strlen($element) < $min_str_len)) {
-                        throw new \ErrorException("There must be at list $min_str_len character long");
+                    if ((strlen($element) < $valid_params['min_str_len'])) {
+                        throw new \ErrorException("There must be at list " .  $valid_params['min_str_len'] . " character long");
                     }
-                    if ((strlen($element) > $max_str_len)) {
-                        throw new \ErrorException("There must be less than $max_str_len character");
+                    if ((strlen($element) > $valid_params['max_str_len'])) {
+                        throw new \ErrorException("There must be less than " . $valid_params['max_str_len'] .  " character");
                     }
                 } else {
                     throw new \ErrorException('Please fill out this field correctly');
@@ -42,7 +40,7 @@ class Validation
             }
         } catch (\ErrorException $e) {
             Error::logError('valid_error', $e->getMessage());
-            header("Location: /list/addNewStudent");
+            header("Location: /list");
             exit;
         }
     }

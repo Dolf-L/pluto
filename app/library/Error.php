@@ -11,8 +11,8 @@ class Error {
     {
         static::$errors[$key] = $error;
     }
-    public static function showError()
+    public static function showError($key)
     {
-        return self::$errors;
+        return isset(self::$errors[$key]) ? self::$errors[$key] : null;
     }
 }

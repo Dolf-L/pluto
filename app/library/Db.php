@@ -2,26 +2,24 @@
 namespace app\library;
 
 use \PDO;
-use app\library\Error;
+use app\interfaces\IDb;
 
 /**
  * Class Db
  * work with database
  */
 
-class Db
+class Db implements IDb
 {
     /**
      * Connection
      *
-     * @return PDO
+     * connection to database
      *
-     * connection database
+     * @return PDO
      */
-    public function getConnection()
+    public function getConnection($params)
     {
-        $params = Config::get('db_params');
-
         try {
             $charset = 'utf8';
             $dns = "mysql:host={$params['host']};dbname={$params['dbname']};charset={$charset}";

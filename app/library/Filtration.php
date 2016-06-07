@@ -1,10 +1,9 @@
 <?php
-namespace app\validation;
+namespace app\library;
 
+use app\interfaces\IFiltration;
 
-use app\library\Error;
-
-class Filtration
+class Filtration implements IFiltration
 {
     protected $array = array();
 

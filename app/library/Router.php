@@ -6,9 +6,9 @@ class Router
 {
     private $routes;
 
-    public function __construct()
+    public function __construct($routes)
     {
-        $this->routes = Config::get('routes');
+        $this->routes = $routes;
     }
 
     private function getURI()

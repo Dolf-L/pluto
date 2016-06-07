@@ -1,8 +1,9 @@
 <?php
 namespace app\library;
 
-use app\library\Error;
-use app\validation\Filtration;
+use app\interfaces\IDb;
+use app\interfaces\IFiltration;
+use app\interfaces\IModel;
 use PDOException;
 
 /**
@@ -10,26 +11,30 @@ use PDOException;
  *
  * abstract class, describes major actions which must contain every model
  */
-abstract Class Model
+class Model implements IModel
 {
     public $db;
-    public $table_name;
 
-    public function __construct(Db $db, $table_name)
+    /**
+     * Model constructor.
+     *
+     * @param IDb $db
+     * @param $params
+     */
+    public function __construct(IDb $db, $params)
     {
-        $this->db = $db->getConnection();
-        $this->table_name = $table_name;
+        $this->db = $db->getConnection($params);
     }
 
     /**
-     * update helper
+     * Helper
+     *
+     * produce SET statement
      *
      * @param $array
      * @return string
-     *
-     * produce SET statement
      */
-    function pdoSet($array)
+    public function pdoSet($array)
     {
         $temp = array();
         foreach (array_keys($array) as $name) {
@@ -41,10 +46,10 @@ abstract Class Model
     /**
      * Show data
      *
+     * show all data from database
+     *
      * @param $table_name
      * @return array
-     *
-     * show all data from database
      */
     public function view($table_name)
     {
@@ -61,11 +66,11 @@ abstract Class Model
     /**
      * Search
      *
+     * pick one string from database by id
+     *
      * @param $table_name
      * @param $id
      * @return array
-     *
-     * pick one string from database by id
      */
     public function search($table_name, $id)
     {
@@ -84,10 +89,10 @@ abstract Class Model
     /**
      * Add new
      *
+     * Add new data to database
+     *
      * @param $table_name
      * @param $data
-     *
-     * Add new data to database
      */
     public function add($table_name, $data)
     {
@@ -109,11 +114,11 @@ abstract Class Model
     /**
      * Update data
      *
+     * update data in database
+     *
      * @param $table_name
      * @param $data
      * @param $id
-     *
-     * update data in database
      */
     public function update($table_name, $data, $id)
     {
@@ -133,10 +138,10 @@ abstract Class Model
     /**
      * Delete
      *
+     * delete data from database by id
+     *
      * @param $table_name
      * @param $id
-     *
-     * delete data from database
      */
     public function delete($table_name, $id)
     {
