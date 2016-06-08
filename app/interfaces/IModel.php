@@ -11,11 +11,8 @@ interface IModel
 {
     /**
      * IModel constructor.
-     *
-     * @param IDb $db
-     * @param $table_name
      */
-    public function __construct(IDb $db, $params);
+    public function __construct();
 
     /**
      * Show data

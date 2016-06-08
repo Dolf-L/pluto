@@ -25,14 +25,14 @@ class Validation
                         throw new \ErrorException("Age mast be grater than " . $valid_params['min_num']);
                     }
                     if ($element > $valid_params['max_num']) {
-                        throw new \ErrorException("Age mast be less than $" . $valid_params['max_num']);
+                        throw new \ErrorException("Age mast be less than " . $valid_params['max_num']);
                     }
                 } elseif (is_string($element)) {
                     if ((strlen($element) < $valid_params['min_str_len'])) {
                         throw new \ErrorException("There must be at list " .  $valid_params['min_str_len'] . " character long");
                     }
                     if ((strlen($element) > $valid_params['max_str_len'])) {
-                        throw new \ErrorException("There must be less than " . $valid_params['max_str_len'] .  " character");
+                        throw new \ErrorException("There must be less than " . $valid_params['max_str_len'] . " character");
                     }
                 } else {
                     throw new \ErrorException('Please fill out this field correctly');

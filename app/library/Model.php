@@ -1,8 +1,6 @@
 <?php
 namespace app\library;
 
-use app\interfaces\IDb;
-use app\interfaces\IFiltration;
 use app\interfaces\IModel;
 use PDOException;
 
@@ -17,13 +15,10 @@ class Model implements IModel
 
     /**
      * Model constructor.
-     *
-     * @param IDb $db
-     * @param $params
      */
-    public function __construct(IDb $db, $params)
+    public function __construct()
     {
-        $this->db = $db->getConnection($params);
+        $this->db = Db::getConnection();
     }
 
     /**

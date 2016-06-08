@@ -14,19 +14,20 @@ use app\library\Config;
 class ListOfStudentsController extends Controller
 {
     protected $model;
-    protected $valid_params;
-    protected $error;
 
+    protected $valid_params;
 
     public function __construct()
     {
-        $params = Config::get('db_params');
-        $this->model = new ListOfStudents(new Db(), $params, new Filtration(), 'list');
-        $this->model->setRepository(new Model(new Db(), $params));
+        $this->valid_params = Config::get('valid_params');
+        $this->model = new ListOfStudents('list');
+        $this->model->setFiltration(new Filtration());
+        $this->model->setModel(new Model());
     }
 
     public function actionIndex()
     {
+
         new View('index.html.twig', array('list' => $this->model->getStudentsList()));
         echo Error::showError('valid_error');
     }
@@ -46,6 +47,7 @@ class ListOfStudentsController extends Controller
     }
     public function actionUpdateStudent($id)
     {
+
         new Validation($_POST, $this->valid_params);
         new View('update.html.twig', array('one' => $this->model->getOneStudent($id)));
         $this->model->UpdateStudent($_POST, $id);

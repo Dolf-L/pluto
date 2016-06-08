@@ -19,7 +19,7 @@ class Filtration implements IFiltration
             } elseif (is_string($value)) {
                 $this->array[$key] = $this->ifStr($value);
             } else {
-                Error::logError('incorrect type');
+                Error::logError('filter','incorrect type');
             }
         }
         return $this->array;
