@@ -1,8 +1,12 @@
 <?php
 namespace app\library;
 
-
-class View
+/**
+ * Class BaseView
+ *
+ * @package app\library
+ */
+class BaseView
 {
     public function __construct($index = '', $data = array())
     {

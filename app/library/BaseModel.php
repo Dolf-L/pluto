@@ -1,39 +1,31 @@
 <?php
-namespace app\model;
+namespace app\library;
 
-use app\validation\IFiltration;
 use app\database\IModel;
-use app\library\BaseModel;
 
-
-class ListOfStudents extends BaseModel
+/**
+ * Base model
+ *
+ * abstract class, describes major actions which must contain every model
+ */
+abstract class BaseModel
 {
-    public $db;
+    protected $db;
 
-    public $table_name;
+    protected $table_name;
 
-    public $filter;
+    protected $filter;
 
-    public $model;
+    protected $model;
 
     /**
-     * ListOfStudents constructor.
+     * BaseModel constructor.
      *
      * @param $table_name
      */
     public function __construct($table_name)
     {
         $this->table_name = $table_name;
-    }
-
-    /**
-     * Filter for data
-     *
-     * @param IFiltration $filter
-     */
-    public function setFiltration(IFiltration $filter)
-    {
-        $this->filter = $filter;
     }
 
     /**
@@ -47,55 +39,68 @@ class ListOfStudents extends BaseModel
     }
 
     /**
-     * Get list of students
+     * Show data
      *
-     * @return mixed
+     * show all data from database
+     *
+     * @param $table_name
+     * @return array
      */
-    public function getStudentsList()
+    public function view()
     {
         return $this->model->view($this->table_name);
     }
 
     /**
-     * get info for one student
+     * Search
      *
+     * pick one string from database by id
+     *
+     * @param $table_name
      * @param $id
-     * @return mixed
+     * @return array
      */
-    public function getOneStudent($id)
+    public function search($id)
     {
         return $this->model->search($this->table_name, $id);
     }
 
     /**
-     * Add new student
+     * Add new
      *
+     * Add new data to database
+     *
+     * @param $table_name
      * @param $data
      */
-    public function AddNewStudent($data)
+    public function add($data)
     {
-        $data = $this->filter->filter($data);
         $this->model->add($this->table_name, $data);
     }
 
     /**
-     * Update student info by id
+     * Update data
      *
+     * update data in database
+     *
+     * @param $table_name
      * @param $data
      * @param $id
      */
-    public function UpdateStudent($data, $id)
+    public function update($data, $id)
     {
-        $data = $this->filter->filter($data);
         $this->model->update($this->table_name, $data, $id);
     }
 
     /**
-     * delete student by id
+     * Delete
      *
+     * delete data from database by id
+     *
+     * @param $table_name
      * @param $id
      */
-    public function deleteStudent($id)
+    public function delete($id)
     {
         $this->model->delete($this->table_name, $id);
     }

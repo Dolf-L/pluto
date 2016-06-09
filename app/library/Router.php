@@ -1,16 +1,30 @@
 <?php
 namespace app\library;
 
-
+/**
+ * Class Router
+ *
+ * @package app\library
+ */
 class Router
 {
     private $routes;
 
+    /**
+     * Router constructor.
+     *
+     * @param $routes
+     */
     public function __construct($routes)
     {
         $this->routes = $routes;
     }
 
+    /**
+     * Get URL
+     *
+     * @return string
+     */
     private function getURI()
     {
         if (!empty($_SERVER['REQUEST_URI'])) {
@@ -18,6 +32,9 @@ class Router
         }
     }
 
+    /**
+     * Run router
+     */
     public function run()
     {
         $uri = $this->getURI();

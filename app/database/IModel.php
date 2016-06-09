@@ -1,6 +1,6 @@
 <?php
 
-namespace app\interfaces;
+namespace app\database;
 
 /**
  * Interface IModel define methods base model mast have

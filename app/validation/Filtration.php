@@ -1,13 +1,19 @@
 <?php
-namespace app\library;
+namespace app\validation;
 
-use app\interfaces\IFiltration;
 
+/**
+ * Class Filtration
+ *
+ * @package app\validation
+ */
 class Filtration implements IFiltration
 {
     protected $array = array();
 
     /**
+     * Data filter
+     *
      * @param $array
      * @return Error|array
      */
@@ -25,11 +31,23 @@ class Filtration implements IFiltration
         return $this->array;
     }
 
+    /**
+     * Numeric filter
+     *
+     * @param $num
+     * @return string
+     */
     public function ifNum($num)
     {
         return strip_tags((int)$num);
     }
 
+    /**
+     * String filter
+     *
+     * @param $str
+     * @return string
+     */
     public function ifStr($str)
     {
         return trim(strip_tags($str));

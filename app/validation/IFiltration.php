@@ -1,6 +1,6 @@
 <?php
 
-namespace app\interfaces;
+namespace app\validation;
 
 /**
  * Interface IFiltration

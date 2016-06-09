@@ -1,7 +1,7 @@
 <?php
-namespace app\library;
+namespace app\database;
 
-use app\interfaces\IModel;
+use app\library\ErrorHandler;
 use PDOException;
 
 /**
@@ -9,7 +9,7 @@ use PDOException;
  *
  * abstract class, describes major actions which must contain every model
  */
-class Model implements IModel
+class PDOModel implements IModel
 {
     public $db;
 
@@ -18,7 +18,7 @@ class Model implements IModel
      */
     public function __construct()
     {
-        $this->db = Db::getConnection();
+        $this->db = Db::getInstance();
     }
 
     /**
@@ -54,7 +54,7 @@ class Model implements IModel
             $list = $stmt->fetchAll();
             return $list;
         } catch (PDOException $e) {
-            Error::logError('pdo_error', $e->getMessage());
+            ErrorHandler::logError('pdo_error', $e->getMessage());
         }
     }
 
@@ -77,7 +77,7 @@ class Model implements IModel
                 $one = $stmt->fetchAll();
                 return $one;
         } catch (PDOException $e) {
-            Error::logError('pdo_error', $e->getMessage());
+            ErrorHandler::logError('pdo_error', $e->getMessage());
         }
     }
 
@@ -102,7 +102,7 @@ class Model implements IModel
                 $stmt->execute($values);
             }
         } catch (PDOException $e) {
-            Error::logError('pdo_error', $e->getMessage());
+            ErrorHandler::logError('pdo_error', $e->getMessage());
         }
     }
 
@@ -126,7 +126,7 @@ class Model implements IModel
                 $stmt->execute($values);
             }
         } catch (PDOException $e) {
-            Error::logError('pdo_error', $e->getMessage());
+            ErrorHandler::logError('pdo_error', $e->getMessage());
         }
     }
 
@@ -146,7 +146,7 @@ class Model implements IModel
             $stmt->bindParam(':id', $id);
             $stmt->execute();
         } catch (PDOException $e) {
-            Error::logError('pdo_error', $e->getMessage());
+            ErrorHandler::logError('pdo_error', $e->getMessage());
         }
     }
 }
