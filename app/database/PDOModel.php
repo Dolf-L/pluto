@@ -18,7 +18,7 @@ class PDOModel implements IModel
      */
     public function __construct()
     {
-        $this->db = Db::getInstance();
+        $this->db = Db::getConnection();
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 namespace app\library;
 
+use app\database\Db;
 use app\database\IModel;
 
 /**
@@ -10,12 +11,19 @@ use app\database\IModel;
  */
 abstract class BaseModel
 {
+    /*
+     * Db connection
+     */
     protected $db;
 
+    /*
+     * Name of table in db
+     */
     protected $table_name;
 
-    protected $filter;
-
+    /**
+     * Instance of model
+     */
     protected $model;
 
     /**
@@ -23,9 +31,9 @@ abstract class BaseModel
      *
      * @param $table_name
      */
-    public function __construct($table_name)
+    public function __construct()
     {
-        $this->table_name = $table_name;
+        $this->db = Db::getConnection();
     }
 
     /**

@@ -10,5 +10,7 @@ define('ROOT', dirname(__FILE__));
 require_once ROOT . "/vendor/autoload.php";
 
 $routes = Config::get('routes');
+
 $router = new Router($routes);
 $router->run();
+

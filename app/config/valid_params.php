@@ -1,4 +1,5 @@
 <?php
+
 use app\library\Config;
 
 Config::set('valid_params', array(

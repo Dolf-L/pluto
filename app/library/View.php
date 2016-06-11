@@ -6,7 +6,7 @@ namespace app\library;
  *
  * @package app\library
  */
-class BaseView
+class View
 {
     public function __construct($index = '', $data = array())
     {

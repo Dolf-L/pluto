@@ -1,19 +1,40 @@
 <?php
 namespace app\model;
 
+use app\database\Db;
 use app\validation\IFiltration;
 use app\database\IModel;
 use app\library\BaseModel;
+use app\library\DI;
 
-
+/**
+ * Class ListOfStudents
+ *
+ * @package app\model
+ *
+ * @Inject model
+ * @Inject filter
+ */
 class ListOfStudents extends BaseModel
 {
+    /**
+     * PDO connection
+     */
     public $db;
 
+    /**
+     * name table in data base
+     */
     public $table_name;
 
+    /**
+     * Filtration class
+     */
     public $filter;
 
+    /**
+     * model
+     */
     public $model;
 
     /**
@@ -23,6 +44,7 @@ class ListOfStudents extends BaseModel
      */
     public function __construct($table_name)
     {
+        $this->db = Db::getConnection();
         $this->table_name = $table_name;
     }
 

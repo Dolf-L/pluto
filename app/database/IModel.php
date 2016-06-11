@@ -11,6 +11,7 @@ interface IModel
 {
     /**
      * IModel constructor.
+     * Connection to Db
      */
     public function __construct();
 

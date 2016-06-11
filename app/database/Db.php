@@ -8,6 +8,7 @@ use app\library\Config;
 
 /**
  * Class Db
+ *
  * work with database
  */
 
@@ -19,7 +20,6 @@ class Db
 
     private function __clone() {}
 
-
     /**
      * Connection
      *
@@ -27,20 +27,13 @@ class Db
      *
      * @return PDO
      */
-    public static function getInstance()
+    public static function getConnection()
     {
-        $params = Config::get('db_params');
-
         try {
             if (!isset(self::$instance)) {
-
-                $charset = 'utf8';
-                $dns = "mysql:host={$params['host']};dbname={$params['dbname']};charset={$charset}";
-                $opt = array(
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-                );
-                self::$instance = new PDO($dns, $params['user'], $params['password'], $opt);
+                $params = Config::get('db_params');
+                $dns = "mysql:host={$params['host']};dbname={$params['dbname']};charset={$params['charset']}";
+                self::$instance = new PDO($dns, $params['user'], $params['password'], $params['options']);
             }
             return self::$instance;
         } catch (PDOException $e) {
