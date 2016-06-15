@@ -8,18 +8,15 @@ use PDOException;
  * Base model
  *
  * abstract class, describes major actions which must contain every model
+ *
+ * @Inject connection
  */
 class PDOModel implements IModel
 {
-    public $db;
-
     /**
-     * Model constructor.
+     * Connection class
      */
-    public function __construct()
-    {
-        $this->db = Db::getConnection();
-    }
+    public $connection;
 
     /**
      * Helper
@@ -48,14 +45,22 @@ class PDOModel implements IModel
      */
     public function view($table_name)
     {
+//        try {
+//            $sql = "SELECT * FROM $table_name";
+//            $stmt = $this->connection->getConnection()->query($sql);
+//            $list = $stmt->fetchAll();
+//            return $list;
+//        } catch (PDOException $e) {
+//            ErrorHandler::logError('pdo_error', $e->getMessage());
+//        }
         try {
-            $sql = "SELECT * FROM $table_name";
-            $stmt = $this->db->query($sql);
-            $list = $stmt->fetchAll();
-            return $list;
+            return $this->connection
+                ->getConnection()
+                ->query("SELECT * FROM $table_name")
+                ->fetchAll();
         } catch (PDOException $e) {
             ErrorHandler::logError('pdo_error', $e->getMessage());
-        }
+       }
     }
 
     /**
@@ -71,7 +76,7 @@ class PDOModel implements IModel
     {
         try {
                 $sql = "SELECT * FROM $table_name WHERE id = :id";
-                $stmt = $this->db->prepare($sql);
+                $stmt = $this->connection->getConnection()->prepare($sql);
                 $stmt->bindParam(':id', $id);
                 $stmt->execute();
                 $one = $stmt->fetchAll();
@@ -97,7 +102,7 @@ class PDOModel implements IModel
             $fields_list = '`' . implode('`, `', $fields) . '`';
             $qm = substr(str_repeat('?,', count($fields)), 0, -1);
             $sql = "INSERT INTO $table_name ($fields_list) VALUES ($qm)";
-            $stmt = $this->db->prepare($sql);
+            $stmt = $this->connection->getConnection()->prepare($sql);
             if ($data) {
                 $stmt->execute($values);
             }
@@ -119,7 +124,7 @@ class PDOModel implements IModel
     {
         try {
             $query = "UPDATE $table_name SET " . $this->pdoSet($data) . " WHERE id = ?";
-            $stmt = $this->db->prepare($query);
+            $stmt = $this->connection->getConnection()->prepare($query);
             $values = array_values($data);
             $values[] = $id;
             if ($data) {
@@ -142,7 +147,7 @@ class PDOModel implements IModel
     {
         try {
             $sql = "DELETE FROM $table_name WHERE id = :id";
-            $stmt = $this->db->prepare($sql);
+            $stmt = $this->connection->getConnection()->prepare($sql);
             $stmt->bindParam(':id', $id);
             $stmt->execute();
         } catch (PDOException $e) {

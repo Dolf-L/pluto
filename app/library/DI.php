@@ -41,13 +41,9 @@ class DI
                     $parts = explode(" ", $parts[1]);
                     if(count($parts) > 1) {
                         $key = $parts[1];
-                        $key = str_replace("\n", "", $key);
                         $key = str_replace("\r", "", $key);
                         if(isset(self::$map->$key)) {
                             switch(self::$map->$key->type) {
-                                case "value":
-                                    $obj->$key = self::$map->$key->value;
-                                    break;
                                 case "class":
                                     $obj->$key = self::getInstanceOf(self::$map->$key->value, self::$map->$key->arguments);
                                     break;
@@ -69,13 +65,13 @@ class DI
 
     }
 
-    public static function mapValue($key, $value) {
-        self::addToMap($key, (object) array(
-            "value" => $value,
-            "type" => "value"
-        ));
-    }
-
+    /**
+     * Mapping classes
+     *
+     * @param $key
+     * @param $value
+     * @param null $arguments
+     */
     public static function mapClass($key, $value, $arguments = null) {
         self::addToMap($key, (object) array(
             "value" => $value,
@@ -84,6 +80,13 @@ class DI
         ));
     }
 
+    /**
+     * Mapping singleton classes
+     *
+     * @param $key
+     * @param $value
+     * @param null $arguments
+     */
     public static function mapClassAsSingleton($key, $value, $arguments = null) {
         self::addToMap($key, (object) array(
             "value" => $value,
@@ -93,6 +96,12 @@ class DI
         ));
     }
 
+    /**
+     * Arrange keys and values
+     *
+     * @param $key
+     * @param $obj
+     */
     private static function addToMap($key, $obj) {
         if(self::$map === null) {
             self::$map = (object) array();

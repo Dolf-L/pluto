@@ -2,10 +2,7 @@
 namespace app\model;
 
 use app\database\Db;
-use app\validation\IFiltration;
-use app\database\IModel;
 use app\library\BaseModel;
-use app\library\DI;
 
 /**
  * Class ListOfStudents
@@ -17,11 +14,6 @@ use app\library\DI;
  */
 class ListOfStudents extends BaseModel
 {
-    /**
-     * PDO connection
-     */
-    public $db;
-
     /**
      * name table in data base
      */
@@ -44,28 +36,7 @@ class ListOfStudents extends BaseModel
      */
     public function __construct($table_name)
     {
-        $this->db = Db::getConnection();
         $this->table_name = $table_name;
-    }
-
-    /**
-     * Filter for data
-     *
-     * @param IFiltration $filter
-     */
-    public function setFiltration(IFiltration $filter)
-    {
-        $this->filter = $filter;
-    }
-
-    /**
-     * Set connection to specific Db
-     *
-     * @param IModel $model
-     */
-    public function setModel(IModel $model)
-    {
-        $this->model = $model;
     }
 
     /**

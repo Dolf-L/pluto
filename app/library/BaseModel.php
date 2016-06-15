@@ -8,14 +8,11 @@ use app\database\IModel;
  * Base model
  *
  * abstract class, describes major actions which must contain every model
+ *
+ *
  */
 abstract class BaseModel
 {
-    /*
-     * Db connection
-     */
-    protected $db;
-
     /*
      * Name of table in db
      */
@@ -25,26 +22,6 @@ abstract class BaseModel
      * Instance of model
      */
     protected $model;
-
-    /**
-     * BaseModel constructor.
-     *
-     * @param $table_name
-     */
-    public function __construct()
-    {
-        $this->db = Db::getConnection();
-    }
-
-    /**
-     * Set connection to specific Db
-     *
-     * @param IModel $model
-     */
-    public function setModel(IModel $model)
-    {
-        $this->model = $model;
-    }
 
     /**
      * Show data

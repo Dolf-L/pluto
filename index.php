@@ -1,6 +1,7 @@
 <?php
 use app\library\Router;
 use app\library\Config;
+use app\database\Db;
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);

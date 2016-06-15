@@ -10,12 +10,6 @@ namespace app\database;
 interface IModel
 {
     /**
-     * IModel constructor.
-     * Connection to Db
-     */
-    public function __construct();
-
-    /**
      * Show data
      *
      * show all data from database

@@ -14,12 +14,6 @@ use app\library\Config;
 
 class Db
 {
-    private static $instance = NULL;
-
-    private function __construct() {}
-
-    private function __clone() {}
-
     /**
      * Connection
      *
@@ -27,15 +21,12 @@ class Db
      *
      * @return PDO
      */
-    public static function getConnection()
+    public function getConnection()
     {
         try {
-            if (!isset(self::$instance)) {
-                $params = Config::get('db_params');
-                $dns = "mysql:host={$params['host']};dbname={$params['dbname']};charset={$params['charset']}";
-                self::$instance = new PDO($dns, $params['user'], $params['password'], $params['options']);
-            }
-            return self::$instance;
+            $params = Config::get('db_params');
+            $dns = "mysql:host={$params['host']};dbname={$params['dbname']};charset={$params['charset']}";
+            return $db = new PDO($dns, $params['user'], $params['password'], $params['options']);
         } catch (PDOException $e) {
             ErrorHandler::logError('db_connection', $e->getMessage());
         }
